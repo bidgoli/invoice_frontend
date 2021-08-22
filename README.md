@@ -5,7 +5,7 @@
 In order to run the project, you should 
 - Clone both invoice frontend and invoice backend
 - Open two terminals and browse into each of the repos
-- Run export SENDGRID_API_KEY=[API_KEY that is provided to you] in the backend terminal
+- Run `export SENDGRID_API_KEY=[API_KEY that is provided]` in the backend terminal
 - Run `npm i` and `npm start` in both terminals. 
 - The app will be accessible via [http://localhost:3000](http://localhost:3000).
 
