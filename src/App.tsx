@@ -3,7 +3,7 @@ import FormDialog from "./components/Dialog";
 import Header from "./components/Header";
 import InvoiceList from "./components/InvoiceList";
 import Nav from "./components/Nav";
-import { Invoice } from "./helpers/types";
+import { Invoice, Status } from "./helpers/types";
 import "./App.css";
 import { getInvoiceList, sendInvoiceList } from "./helpers/api";
 
@@ -12,6 +12,14 @@ function App() {
 
   const handleAddInvoice = (invoice: Invoice) => {
     const newInvoiceList = [...invoiceList, invoice];
+    setInvoiceList(newInvoiceList);
+    sendInvoiceList(newInvoiceList);
+  };
+
+  const updateStatus = (id: number, newStatus: Status) => {
+    const newInvoiceList = invoiceList.map((invoice) =>
+      invoice.id === id ? { ...invoice, status: newStatus } : invoice
+    );
     setInvoiceList(newInvoiceList);
     sendInvoiceList(newInvoiceList);
   };
@@ -36,7 +44,7 @@ function App() {
       <div className="Body">
         <div className="container">
           <FormDialog handleAddInvoice={handleAddInvoice} />
-          <InvoiceList invoiceList={invoiceList} />
+          <InvoiceList invoiceList={invoiceList} updateStatus={updateStatus} />
         </div>
       </div>
     </div>
