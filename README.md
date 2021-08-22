@@ -15,6 +15,7 @@ The invoice app includes functionalities like:
 
 ### Further Steps
 - Using a database for storing the invoice list
+- Adding useContext Hook
 - Having better validation and error checkings
 - Adding search/filter for the invoices
 - Hosting the app
