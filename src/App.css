@@ -1,0 +1,47 @@
+.App {
+  text-align: center;
+  background-color: #f5f5f5;
+  height: calc(100vh);
+}
+
+.Nav {
+  background-color: #282c34;
+  color: white;
+}
+
+.Header {
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+.container {
+  padding: 10px 20%;
+}
+
+.left {
+  display: flex;
+}
+
+.right {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.buttonlist {
+  padding-bottom: 10px;
+  float: right;
+}
+
+.detail {
+  padding-left: 10px;
+}
+
+.detail .sendButton {
+  float: right;
+  margin-bottom: 10px;
+}
+
+a {
+  text-decoration: none;
+  color: #ddd;
+}
