@@ -3,7 +3,7 @@
  * https://material-ui.com/components/tables/#collapsible-table
  */
 
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
@@ -16,10 +16,16 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
-import { Invoice, RowProps } from "../helpers/types";
+import {
+  InvoiceListProps,
+  RowProps,
+  Status,
+  statusList,
+} from "../helpers/types";
 import Detail from "./Detail";
 import { dateFormatter } from "../helpers/date";
 import moment from "moment";
+import { MenuItem, Select } from "@material-ui/core";
 
 const useRowStyles = makeStyles({
   root: {
@@ -30,8 +36,14 @@ const useRowStyles = makeStyles({
 });
 
 function Row(props: RowProps) {
-  const { invoice } = props;
-  const [open, setOpen] = React.useState(false);
+  const { invoice, updateStatus } = props;
+  const [open, setOpen] = useState(false);
+
+  const handleStatusChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const newStatus = event.target.value as Status;
+    updateStatus(invoice.id, newStatus);
+  };
+
   const classes = useRowStyles();
   const rowColor = moment().isAfter(invoice.dueDate) ? "#ffeeee" : "";
 
@@ -53,7 +65,20 @@ function Row(props: RowProps) {
         <TableCell align="right">{`${invoice.firstName} ${invoice.lastName}`}</TableCell>
         <TableCell align="right">{dateFormatter(invoice.dueDate)}</TableCell>
         <TableCell align="right">{invoice.price}</TableCell>
-        <TableCell align="right">{invoice.status}</TableCell>
+        <TableCell align="right">
+          <Select
+            labelId="status"
+            id="status"
+            value={invoice.status}
+            onChange={handleStatusChange}
+          >
+            {Object.keys(statusList).map((status) => (
+              <MenuItem key={status} value={status}>
+                {status}
+              </MenuItem>
+            ))}
+          </Select>
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -66,8 +91,8 @@ function Row(props: RowProps) {
   );
 }
 
-export default function InvoiceList(props: { invoiceList: Invoice[] }) {
-  const { invoiceList } = props;
+export default function InvoiceList(props: InvoiceListProps) {
+  const { invoiceList, updateStatus } = props;
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
@@ -83,7 +108,11 @@ export default function InvoiceList(props: { invoiceList: Invoice[] }) {
         </TableHead>
         <TableBody>
           {invoiceList.map((invoice) => (
-            <Row key={invoice.id} invoice={invoice} />
+            <Row
+              key={invoice.id}
+              invoice={invoice}
+              updateStatus={updateStatus}
+            />
           ))}
         </TableBody>
       </Table>
