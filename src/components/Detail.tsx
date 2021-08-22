@@ -60,6 +60,7 @@ export default function Detail(props: DetailProps) {
         }}
         open={open}
         autoHideDuration={3000}
+        onClose={handleClose}
       >
         <MuiAlert
           onClose={handleClose}
@@ -67,7 +68,7 @@ export default function Detail(props: DetailProps) {
           elevation={6}
           variant="filled"
         >
-          Sending the email.
+          Sending the email...
         </MuiAlert>
       </Snackbar>
     </div>
