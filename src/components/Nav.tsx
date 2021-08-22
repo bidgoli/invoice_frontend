@@ -1,7 +1,7 @@
 function Header() {
   return (
     <div>
-      <a href="www.github.com">Github</a>
+      <a href="https://github.com/bidgoli/invoice_frontend">Github</a>
     </div>
   );
 }
