@@ -20,6 +20,13 @@ export type Invoice = TextValues & {
   status: Status;
 };
 
-export type RowProps = { invoice: Invoice };
+export type InvoiceListProps = {
+  invoiceList: Invoice[];
+  updateStatus: (id: number, newStatus: Status) => void;
+};
+export type RowProps = {
+  invoice: Invoice;
+  updateStatus: (id: number, newStatus: Status) => void;
+};
 export type DetailProps = { invoice: Invoice };
 export type DialogProps = { handleAddInvoice: (invoice: Invoice) => void };
